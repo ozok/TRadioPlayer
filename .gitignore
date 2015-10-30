@@ -1,0 +1,17 @@
+*.dll
+*.pdb
+*.exe
+*.cache
+*.bak
+*.nupkg
+*.ps1
+*.targets
+*.config
+*.transform
+*.xdt
+*.xml
+*.txt
+*.pdf
+tools
+/TRadioPlayer/bin/Debug/categories_2.json
+Debug

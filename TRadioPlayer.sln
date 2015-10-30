@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRadioPlayer", "TRadioPlayer\TRadioPlayer.csproj", "{B16AFA00-6CB9-46E0-9E9C-C5C7D89C06C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRadioPlayer.DataAccess", "TRadioPlayer.DataAccess\TRadioPlayer.DataAccess.csproj", "{0011F56E-B235-4C78-A671-A5A46C7DC4FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRadioPlayer.Settings", "TRadioPlayer.Settings\TRadioPlayer.Settings.csproj", "{BC545D02-D7E9-44E6-9D55-52D51B32D67E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B16AFA00-6CB9-46E0-9E9C-C5C7D89C06C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16AFA00-6CB9-46E0-9E9C-C5C7D89C06C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16AFA00-6CB9-46E0-9E9C-C5C7D89C06C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16AFA00-6CB9-46E0-9E9C-C5C7D89C06C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0011F56E-B235-4C78-A671-A5A46C7DC4FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0011F56E-B235-4C78-A671-A5A46C7DC4FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0011F56E-B235-4C78-A671-A5A46C7DC4FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0011F56E-B235-4C78-A671-A5A46C7DC4FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC545D02-D7E9-44E6-9D55-52D51B32D67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC545D02-D7E9-44E6-9D55-52D51B32D67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC545D02-D7E9-44E6-9D55-52D51B32D67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC545D02-D7E9-44E6-9D55-52D51B32D67E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
