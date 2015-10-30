@@ -21,6 +21,7 @@ namespace TRadioPlayer
         }
         private LogForm _logForm;
 
+        // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
         private const string TitleStart = " icy-title: ";
         private const string ErrorStart = "Failed to open ";
@@ -30,16 +31,20 @@ namespace TRadioPlayer
         private const string PlayingStart = "Playing: ";
         private const string Paused = "(Paused)";
 
+        // taskbar overlay icons
         private Icon playIcon = System.Drawing.Icon.FromHandle(TRadioPlayer.Properties.Resources.play.GetHicon());
         private Icon pausedIcon = System.Drawing.Icon.FromHandle(TRadioPlayer.Properties.Resources.pause.GetHicon());
 
+        // list of radio stations
         private List<RadioInfo> _radioInfos = new List<RadioInfo>();
+        // list of radio station categories
         private List<RadioCategory> _radioCategories = new List<RadioCategory>();
-
+        
         private RadioDb _radioDb;
         private SettingReadWrite _settingReadWrite;
         private Settings.Settings _settings;
 
+        // paths
         private string _dataFilePath;
         private string _categoryListFilePath;
         private string _mpvPath;
@@ -138,9 +143,13 @@ namespace TRadioPlayer
             LoadSettings();
         }
 
+        /// <summary>
+        /// displays radio stations according to the selected category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CategoryList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // display stations according to selected category
             DisplayStations();
             int lastPlayedIndex = _radioCategories[CategoryList.SelectedIndex].LastPlayedStationIndex;
             if (lastPlayedIndex > -1 && lastPlayedIndex < _radioInfos.Count)
@@ -221,26 +230,36 @@ namespace TRadioPlayer
             }
         }
 
-        // called from search form
+        /// <summary>
+        /// plays given radio index
+        /// only called from search form
+        /// </summary>
+        /// <param name="index">index of the radio station to be placed</param>
         public void PlayFromSearchForm(int index)
         {
             RadioInfo radioInfo = _radioInfos[index];
-
-            // update the last played station for that radio category
-            _radioCategories[CategoryList.SelectedIndex].LastPlayedStationIndex = index;
-            if (_currentRadioIndex > -1)
+            if (radioInfo != null)
             {
-                StationsList.Items[_currentRadioIndex].Selected = false;
-            }
-            _currentRadioIndex = index;
-            _activeCategory = CategoryList.SelectedIndex;
-            StationsList.Items[index].EnsureVisible();
-            StationsList.Items[index].Selected = true;
-            StationsList.Refresh();
+                // update the last played station for that radio category
+                _radioCategories[CategoryList.SelectedIndex].LastPlayedStationIndex = index;
+                if (_currentRadioIndex > -1)
+                {
+                    StationsList.Items[_currentRadioIndex].Selected = false;
+                }
+                _currentRadioIndex = index;
+                _activeCategory = CategoryList.SelectedIndex;
+                // make sure list focuses on the station
+                StationsList.Items[index].EnsureVisible();
+                StationsList.Items[index].Selected = true;
+                StationsList.Refresh();
 
-            // play the radio
-            // todo: check links first
-            PlayUrl(radioInfo.StreamUrl);
+                // play the radio
+                PlayUrl(radioInfo.StreamUrl);   
+            }
+            else
+            {
+                // todo: report this by showing the log    
+            }         
         }
 
         /// <summary>
@@ -262,6 +281,7 @@ namespace TRadioPlayer
             {
                 return;
             }
+            // update UI
             _title = "TRadioPlayer";
             try
             {
@@ -286,7 +306,12 @@ namespace TRadioPlayer
             }
             // start playing radio
             PlayerProcess = new Process();
-            PlayerProcess.StartInfo = _startInfo;
+            // this processtartinfo is copied from the
+            // process in the UI. It should never be null.
+            if (_startInfo != null)
+            {
+                PlayerProcess.StartInfo = _startInfo;
+            }
             PlayerProcess.StartInfo.FileName = _mpvPath;
             PlayerProcess.StartInfo.Arguments = SongPlayCmd + " --volume " + _volumeLevel.ToString() + " \"" + url + "\"";
             PlayerProcess.ErrorDataReceived += PlayProcess_ErrorDataReceived;
@@ -376,7 +401,6 @@ namespace TRadioPlayer
         {
             // save log to log.txt file
             // todo: change file path
-            // todo: show in UI
             File.WriteAllLines("log.txt", _log, Encoding.UTF8);
             _closing = true;
             try
