@@ -70,6 +70,14 @@ namespace TRadioPlayer.DataAccess
             WriteDataToFile();
         }
 
+        /// <summary>
+        /// reads radio stations from a json file
+        /// information is stored on a list which is
+        /// used in other read/write operations.
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="onlyFaved"></param>
+        /// <returns></returns>
         private List<RadioInfo> ReadDataFromFile(int categoryId = 0, bool onlyFaved = false)
         {
             var jsonStr = File.ReadAllText(_dataFilePath, Encoding.UTF8);
@@ -89,12 +97,19 @@ namespace TRadioPlayer.DataAccess
             return result.OrderBy(c => c.Title).ToList();
         }
 
+        /// <summary>
+        /// writes radio stations master list to a json file
+        /// </summary>
         private void WriteDataToFile()
         {
             var jsonStr = JsonConvert.SerializeObject(_radioInfos, Formatting.Indented);
             File.WriteAllText(_dataFilePath, jsonStr, Encoding.UTF8);
         }
 
+        /// <summary>
+        /// read radio station categories from a json file
+        /// </summary>
+        /// <returns></returns>
         public List<RadioCategory> ReadCategoriesFromFile()
         {
             var jsonStr = File.ReadAllText(_categoriesFilePath, Encoding.UTF8);
@@ -103,12 +118,20 @@ namespace TRadioPlayer.DataAccess
             return result;
         }
 
+        /// <summary>
+        /// writes radio station categories to a json file
+        /// </summary>
+        /// <param name="radioCategories"></param>
         public void WriteCategoriesToFile(List<RadioCategory> radioCategories)
         {
             var jsonStr = JsonConvert.SerializeObject(radioCategories, Formatting.Indented);
             File.WriteAllText(_categoriesFilePath, jsonStr, Encoding.UTF8);
         }
 
+        /// <summary>
+        /// reverses a radio station's favourite state
+        /// </summary>
+        /// <param name="index"></param>
         public void UpdateFavState(int index)
         {
             _radioInfos[index].Faved = !_radioInfos[index].Faved;
