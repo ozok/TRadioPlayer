@@ -257,6 +257,7 @@
             this.AddStationBtn.TabIndex = 16;
             this.toolTip1.SetToolTip(this.AddStationBtn, "Add a new station");
             this.AddStationBtn.UseVisualStyleBackColor = true;
+            this.AddStationBtn.Click += new System.EventHandler(this.AddStationBtn_Click);
             // 
             // TopBottomPanel
             // 

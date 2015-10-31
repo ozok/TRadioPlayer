@@ -64,7 +64,8 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LogForm";
+            this.Text = "Log";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogForm_FormClosed);
             this.Load += new System.EventHandler(this.LogForm_Load);
             this.Shown += new System.EventHandler(this.LogForm_Shown);
             this.Resize += new System.EventHandler(this.LogForm_Resize);

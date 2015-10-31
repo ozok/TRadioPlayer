@@ -19,7 +19,8 @@ namespace TRadioPlayer
             Paused = 1,
             Stopped = 2
         }
-        private LogForm _logForm;
+        public static LogForm _logForm = null;
+        public static AddNewStationForm _addNewStationForm = null;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
@@ -39,7 +40,7 @@ namespace TRadioPlayer
         private List<RadioInfo> _radioInfos = new List<RadioInfo>();
         // list of radio station categories
         private List<RadioCategory> _radioCategories = new List<RadioCategory>();
-        
+
         private RadioDb _radioDb;
         private SettingReadWrite _settingReadWrite;
         private Settings.Settings _settings;
@@ -89,22 +90,28 @@ namespace TRadioPlayer
             VolumeLabel.Text = String.Format("{0} %", _volumeLevel);
         }
 
+        public void ReloadStationsAndData()
+        {
+            _radioDb = new RadioDb(_dataFilePath, _categoryListFilePath);
+            LoadStations();
+        }
+
         /// <summary>
         /// Loads stations from json file according to selected radio category
         /// </summary>
-        private void DisplayStations()
+        public void LoadStations()
         {
             StationsList.Items.Clear();
 
             if (CategoryList.SelectedIndex == CategoryList.Items.Count - 1)
             {
                 // load only favs
-                _radioInfos = _radioDb.Get(CategoryList.SelectedIndex, true);
+                _radioInfos = _radioDb.GetRadioStationsAccordingToCategory(CategoryList.SelectedIndex, true);
             }
             else
             {
                 // load according to category
-                _radioInfos = _radioDb.Get(CategoryList.SelectedIndex);
+                _radioInfos = _radioDb.GetRadioStationsAccordingToCategory(CategoryList.SelectedIndex);
             }
             StationsList.VirtualListSize = _radioInfos.Count;
         }
@@ -133,7 +140,7 @@ namespace TRadioPlayer
             }
             CategoryList.SelectedIndex = 0;
 
-            DisplayStations();
+            LoadStations();
             _volumeLevel = VolumeBar.Value;
 
             StationsList.Columns[1].Width = 60;
@@ -150,7 +157,7 @@ namespace TRadioPlayer
         /// <param name="e"></param>
         private void CategoryList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayStations();
+            LoadStations();
             int lastPlayedIndex = _radioCategories[CategoryList.SelectedIndex].LastPlayedStationIndex;
             if (lastPlayedIndex > -1 && lastPlayedIndex < _radioInfos.Count)
             {
@@ -171,8 +178,15 @@ namespace TRadioPlayer
             {
                 Invoke((MethodInvoker)delegate
                 {
-                    _title = consoleMesssage.Replace(TitleStart, "").Trim() + " ";
-                    TitleLabel.Text = _title;
+                    var tmpStr = consoleMesssage.Replace(TitleStart, "").Trim();
+                    if (!String.IsNullOrEmpty(tmpStr))
+                    {
+                        if (tmpStr.Trim() != "-")
+                        {
+                            _title = tmpStr + " ";
+                            TitleLabel.Text = _title;
+                        }
+                    }
                 });
             }
             else if (consoleMesssage.StartsWith(PlayingStart))
@@ -254,12 +268,12 @@ namespace TRadioPlayer
                 StationsList.Refresh();
 
                 // play the radio
-                PlayUrl(radioInfo.StreamUrl);   
+                PlayUrl(radioInfo.StreamUrl);
             }
             else
             {
                 // todo: report this by showing the log    
-            }         
+            }
         }
 
         /// <summary>
@@ -568,14 +582,35 @@ namespace TRadioPlayer
 
         private void AddNewStationBtn_Click(object sender, EventArgs e)
         {
-            LogForm logForm = new LogForm();
-            _logForm = logForm;
-            _logForm.Show();
+            if (_logForm != null)
+            {
+                _logForm.BringToFront();
+            }
+            else
+            {
+                LogForm logForm = new LogForm();
+                _logForm = logForm;
+                _logForm.Show();  
+            }
         }
 
         private void StationsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void AddStationBtn_Click(object sender, EventArgs e)
+        {
+            if (_addNewStationForm != null)
+            {
+                _addNewStationForm.BringToFront();
+            }
+            else
+            {
+                AddNewStationForm addNewStationForm = new AddNewStationForm(this);
+                _addNewStationForm = addNewStationForm;
+                _addNewStationForm.ShowDialog();
+            }
         }
     }
 }

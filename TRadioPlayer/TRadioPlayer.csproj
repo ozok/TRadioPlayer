@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewStationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewStationForm.Designer.cs">
+      <DependentUpon>AddNewStationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     <Compile Include="SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddNewStationForm.resx">
+      <DependentUpon>AddNewStationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -60,5 +60,10 @@ namespace TRadioPlayer
         {
             LogList.Columns[0].Width = LogList.ClientSize.Width - 20;
         }
+
+        private void LogForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MainForm._logForm = null;
+        }
     }
 }
