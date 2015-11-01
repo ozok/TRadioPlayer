@@ -1,4 +1,12 @@
-﻿/*
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+//Sample license text.
+extensions: .aspx .ascx
+<%-- 
+Sample license text.
+--%>
+extensions: .cs
+/*
 The MIT License (MIT)
 
 Copyright (c) 2015 ozok26@gmail.com - Okan Özcan
@@ -21,23 +29,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TRadioPlayer.DataAccess
-{
-    public class RadioCategory
-    {
-        public string Title { get; set; }
-        public int LastPlayedStationIndex { get; set; }
-
-        public RadioCategory()
-        {
-            LastPlayedStationIndex = -1;
-        }
-    }
-}
+extensions:  .xml .config .xsd
+<!--
+Sample license text.
+-->

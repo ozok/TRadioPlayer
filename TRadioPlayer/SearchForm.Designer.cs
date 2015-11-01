@@ -75,6 +75,7 @@
             this.Controls.Add(this.SearchEdit);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.KeyPreview = true;
             this.Name = "SearchForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -82,6 +83,7 @@
             this.Text = "Search";
             this.TopMost = true;
             this.Shown += new System.EventHandler(this.SearchForm_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchForm_KeyDown);
             this.Resize += new System.EventHandler(this.SearchForm_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

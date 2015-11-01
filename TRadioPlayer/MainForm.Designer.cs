@@ -158,7 +158,7 @@
             // favUnFavToolStripMenuItem
             // 
             this.favUnFavToolStripMenuItem.Name = "favUnFavToolStripMenuItem";
-            this.favUnFavToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.favUnFavToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.favUnFavToolStripMenuItem.Text = "Fav/UnFav";
             this.favUnFavToolStripMenuItem.Click += new System.EventHandler(this.favUnFavToolStripMenuItem_Click);
             // 
@@ -298,12 +298,14 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.TopPanel);
             this.DoubleBuffered = true;
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TRadioPlayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).EndInit();
             this.StationListMenu.ResumeLayout(false);

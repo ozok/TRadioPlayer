@@ -1,4 +1,28 @@
-﻿using System;
+﻿/*
+The MIT License (MIT)
+
+Copyright (c) 2015 ozok26@gmail.com - Okan Özcan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -142,6 +166,8 @@ namespace TRadioPlayer
             _playThumbnailToolBarButton.Enabled = true;
             _stopThumbnailToolBarButton.Visible = true;
             _stopThumbnailToolBarButton.Enabled = true;
+            _playThumbnailToolBarButton.DismissOnClick = true;
+            _stopThumbnailToolBarButton.DismissOnClick = true;
 
             TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, _playThumbnailToolBarButton,
                 _stopThumbnailToolBarButton);
@@ -178,7 +204,7 @@ namespace TRadioPlayer
             StationsList.Columns[0].Width = StationsList.ClientSize.Width - 10 - StationsList.Columns[1].Width;
 
             // load general program settings
-            LoadSettings(); 
+            LoadSettings();
         }
 
         /// <summary>
@@ -549,11 +575,25 @@ namespace TRadioPlayer
 
         private void StationsList_MouseEnter(object sender, EventArgs e)
         {
+            if (LogForm != null)
+            {
+                if (LogForm.Visible)
+                {
+                    return;
+                }
+            }
             StationsList.Focus();
         }
 
         private void StationsList_MouseLeave(object sender, EventArgs e)
         {
+            if (LogForm != null)
+            {
+                if (LogForm.Visible)
+                {
+                    return;
+                }
+            }
             VolumeBar.Focus();
         }
 
@@ -575,6 +615,8 @@ namespace TRadioPlayer
                 }
             }
             searchForm.Show();
+            this.SendToBack();
+            searchForm.BringToFront();
         }
 
         private void favUnFavToolStripMenuItem_Click(object sender, EventArgs e)
@@ -621,7 +663,7 @@ namespace TRadioPlayer
             {
                 LogForm logForm = new LogForm();
                 LogForm = logForm;
-                LogForm.Show();  
+                LogForm.Show();
             }
         }
 
@@ -641,6 +683,22 @@ namespace TRadioPlayer
                 AddNewStationForm addNewStationForm = new AddNewStationForm(this);
                 AddNewStationForm = addNewStationForm;
                 AddNewStationForm.ShowDialog();
+            }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space && e.Control)
+            {
+                PauseBtn_Click(sender, null);
+            }
+            else if (e.KeyCode == Keys.S && e.Control)
+            {
+                StopBtn_Click(sender, null);
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                SearchBtn_Click(sender, null);
             }
         }
     }
