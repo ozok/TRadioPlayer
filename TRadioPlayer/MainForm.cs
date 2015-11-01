@@ -45,6 +45,7 @@ namespace TRadioPlayer
         }
         public static LogForm LogForm = null;
         public static AddNewStationForm AddNewStationForm = null;
+        private EQForm _eqForm = null;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
@@ -57,9 +58,9 @@ namespace TRadioPlayer
         private const string Paused = "(Paused)";
 
         // taskbar overlay icons
-        private Icon playIcon = Icon.FromHandle(Properties.Resources.play.GetHicon());
-        private Icon pausedIcon = Icon.FromHandle(Properties.Resources.pause.GetHicon());
-        private Icon stopIcon = Icon.FromHandle(Properties.Resources.stop.GetHicon());
+        private Icon playIcon = Icon.FromHandle(Properties.Resources.media_playback_start.GetHicon());
+        private Icon pausedIcon = Icon.FromHandle(Properties.Resources.media_playback_pause.GetHicon());
+        private Icon stopIcon = Icon.FromHandle(Properties.Resources.media_playback_stop.GetHicon());
 
         private ThumbnailToolBarButton _playThumbnailToolBarButton;
         private ThumbnailToolBarButton _stopThumbnailToolBarButton;
@@ -582,6 +583,13 @@ namespace TRadioPlayer
                     return;
                 }
             }
+            if (_eqForm != null)
+            {
+                if (_eqForm.Visible)
+                {
+                    return;
+                }
+            }
             StationsList.Focus();
         }
 
@@ -590,6 +598,13 @@ namespace TRadioPlayer
             if (LogForm != null)
             {
                 if (LogForm.Visible)
+                {
+                    return;
+                }
+            }
+            if (_eqForm != null)
+            {
+                if (_eqForm.Visible)
                 {
                     return;
                 }
@@ -699,6 +714,20 @@ namespace TRadioPlayer
             else if (e.KeyCode == Keys.F3)
             {
                 SearchBtn_Click(sender, null);
+            }
+        }
+
+        private void EQBtn_Click(object sender, EventArgs e)
+        {
+            if (_eqForm != null)
+            {
+                _eqForm.BringToFront();
+            }
+            else
+            {
+                EQForm eqForm = new EQForm(this);
+                _eqForm = eqForm;
+                _eqForm.Show();
             }
         }
     }

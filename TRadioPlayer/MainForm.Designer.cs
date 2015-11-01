@@ -41,29 +41,29 @@
             this.VolumeLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.VolumePanel = new System.Windows.Forms.Panel();
-            this.SearchBtn = new System.Windows.Forms.Button();
-            this.LogBtn = new System.Windows.Forms.Button();
-            this.StopBtn = new System.Windows.Forms.Button();
-            this.PauseBtn = new System.Windows.Forms.Button();
-            this.AddStationBtn = new System.Windows.Forms.Button();
             this.TopBottomPanel = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.RotateTimer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.EQBtn = new System.Windows.Forms.Button();
+            this.SearchBtn = new System.Windows.Forms.Button();
+            this.LogBtn = new System.Windows.Forms.Button();
+            this.StopBtn = new System.Windows.Forms.Button();
+            this.PauseBtn = new System.Windows.Forms.Button();
+            this.AddStationBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.StationListMenu.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.VolumePanel.SuspendLayout();
             this.TopBottomPanel.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CategoryList
             // 
             this.CategoryList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryList.FormattingEnabled = true;
-            this.CategoryList.Location = new System.Drawing.Point(8, 4);
+            this.CategoryList.Location = new System.Drawing.Point(8, 9);
             this.CategoryList.Margin = new System.Windows.Forms.Padding(5);
             this.CategoryList.Name = "CategoryList";
             this.CategoryList.Size = new System.Drawing.Size(119, 21);
@@ -79,7 +79,7 @@
             this.TitleLabel.Location = new System.Drawing.Point(0, 3);
             this.TitleLabel.Margin = new System.Windows.Forms.Padding(3);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(453, 20);
+            this.TitleLabel.Size = new System.Drawing.Size(537, 20);
             this.TitleLabel.TabIndex = 8;
             this.TitleLabel.Text = "TRadioPlayer";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -89,7 +89,7 @@
             this.VolumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VolumeBar.AutoSize = false;
             this.VolumeBar.LargeChange = 1;
-            this.VolumeBar.Location = new System.Drawing.Point(135, 3);
+            this.VolumeBar.Location = new System.Drawing.Point(129, 9);
             this.VolumeBar.Maximum = 100;
             this.VolumeBar.Name = "VolumeBar";
             this.VolumeBar.Size = new System.Drawing.Size(129, 23);
@@ -126,10 +126,10 @@
             this.StationsList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StationsList.FullRowSelect = true;
             this.StationsList.HideSelection = false;
-            this.StationsList.Location = new System.Drawing.Point(0, 53);
+            this.StationsList.Location = new System.Drawing.Point(0, 63);
             this.StationsList.Margin = new System.Windows.Forms.Padding(0);
             this.StationsList.Name = "StationsList";
-            this.StationsList.Size = new System.Drawing.Size(453, 498);
+            this.StationsList.Size = new System.Drawing.Size(537, 488);
             this.StationsList.TabIndex = 10;
             this.StationsList.UseCompatibleStateImageBehavior = false;
             this.StationsList.View = System.Windows.Forms.View.Details;
@@ -158,16 +158,16 @@
             // favUnFavToolStripMenuItem
             // 
             this.favUnFavToolStripMenuItem.Name = "favUnFavToolStripMenuItem";
-            this.favUnFavToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.favUnFavToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.favUnFavToolStripMenuItem.Text = "Fav/UnFav";
             this.favUnFavToolStripMenuItem.Click += new System.EventHandler(this.favUnFavToolStripMenuItem_Click);
             // 
             // VolumeLabel
             // 
             this.VolumeLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.VolumeLabel.Location = new System.Drawing.Point(270, 0);
+            this.VolumeLabel.Location = new System.Drawing.Point(264, 0);
             this.VolumeLabel.Name = "VolumeLabel";
-            this.VolumeLabel.Size = new System.Drawing.Size(33, 30);
+            this.VolumeLabel.Size = new System.Drawing.Size(33, 40);
             this.VolumeLabel.TabIndex = 12;
             this.VolumeLabel.Text = "100%";
             this.VolumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -176,6 +176,7 @@
             // TopPanel
             // 
             this.TopPanel.Controls.Add(this.VolumePanel);
+            this.TopPanel.Controls.Add(this.EQBtn);
             this.TopPanel.Controls.Add(this.SearchBtn);
             this.TopPanel.Controls.Add(this.LogBtn);
             this.TopPanel.Controls.Add(this.StopBtn);
@@ -185,7 +186,7 @@
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(453, 53);
+            this.TopPanel.Size = new System.Drawing.Size(537, 63);
             this.TopPanel.TabIndex = 14;
             // 
             // VolumePanel
@@ -194,78 +195,18 @@
             this.VolumePanel.Controls.Add(this.VolumeBar);
             this.VolumePanel.Controls.Add(this.VolumeLabel);
             this.VolumePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VolumePanel.Location = new System.Drawing.Point(60, 0);
+            this.VolumePanel.Location = new System.Drawing.Point(80, 0);
             this.VolumePanel.Name = "VolumePanel";
-            this.VolumePanel.Size = new System.Drawing.Size(303, 30);
+            this.VolumePanel.Size = new System.Drawing.Size(297, 40);
             this.VolumePanel.TabIndex = 13;
-            // 
-            // SearchBtn
-            // 
-            this.SearchBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SearchBtn.Image = global::TRadioPlayer.Properties.Resources.search;
-            this.SearchBtn.Location = new System.Drawing.Point(363, 0);
-            this.SearchBtn.Name = "SearchBtn";
-            this.SearchBtn.Size = new System.Drawing.Size(30, 30);
-            this.SearchBtn.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.SearchBtn, "Search in Stations");
-            this.SearchBtn.UseVisualStyleBackColor = true;
-            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
-            // 
-            // LogBtn
-            // 
-            this.LogBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LogBtn.Image = global::TRadioPlayer.Properties.Resources.align_justify;
-            this.LogBtn.Location = new System.Drawing.Point(393, 0);
-            this.LogBtn.Name = "LogBtn";
-            this.LogBtn.Size = new System.Drawing.Size(30, 30);
-            this.LogBtn.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.LogBtn, "See mpv output");
-            this.LogBtn.UseVisualStyleBackColor = true;
-            this.LogBtn.Click += new System.EventHandler(this.AddNewStationBtn_Click);
-            // 
-            // StopBtn
-            // 
-            this.StopBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.StopBtn.Image = global::TRadioPlayer.Properties.Resources.stop;
-            this.StopBtn.Location = new System.Drawing.Point(30, 0);
-            this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(30, 30);
-            this.StopBtn.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.StopBtn, "Stop");
-            this.StopBtn.UseVisualStyleBackColor = true;
-            this.StopBtn.Click += new System.EventHandler(this.StopBtn_Click);
-            // 
-            // PauseBtn
-            // 
-            this.PauseBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PauseBtn.Image = global::TRadioPlayer.Properties.Resources.pause;
-            this.PauseBtn.Location = new System.Drawing.Point(0, 0);
-            this.PauseBtn.Name = "PauseBtn";
-            this.PauseBtn.Size = new System.Drawing.Size(30, 30);
-            this.PauseBtn.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.PauseBtn, "Pause/Play");
-            this.PauseBtn.UseVisualStyleBackColor = true;
-            this.PauseBtn.Click += new System.EventHandler(this.PauseBtn_Click);
-            // 
-            // AddStationBtn
-            // 
-            this.AddStationBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.AddStationBtn.Image = global::TRadioPlayer.Properties.Resources.plus;
-            this.AddStationBtn.Location = new System.Drawing.Point(423, 0);
-            this.AddStationBtn.Name = "AddStationBtn";
-            this.AddStationBtn.Size = new System.Drawing.Size(30, 30);
-            this.AddStationBtn.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.AddStationBtn, "Add a new station");
-            this.AddStationBtn.UseVisualStyleBackColor = true;
-            this.AddStationBtn.Click += new System.EventHandler(this.AddStationBtn_Click);
             // 
             // TopBottomPanel
             // 
             this.TopBottomPanel.Controls.Add(this.TitleLabel);
             this.TopBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TopBottomPanel.Location = new System.Drawing.Point(0, 30);
+            this.TopBottomPanel.Location = new System.Drawing.Point(0, 40);
             this.TopBottomPanel.Name = "TopBottomPanel";
-            this.TopBottomPanel.Size = new System.Drawing.Size(453, 23);
+            this.TopBottomPanel.Size = new System.Drawing.Size(537, 23);
             this.TopBottomPanel.TabIndex = 15;
             // 
             // RotateTimer
@@ -275,11 +216,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 551);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(453, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(537, 22);
             this.statusStrip1.TabIndex = 15;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -289,11 +228,82 @@
             this.StatusLabel.Size = new System.Drawing.Size(48, 17);
             this.StatusLabel.Text = "Ready...";
             // 
+            // EQBtn
+            // 
+            this.EQBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.EQBtn.Image = global::TRadioPlayer.Properties.Resources.multimedia_equalizer;
+            this.EQBtn.Location = new System.Drawing.Point(377, 0);
+            this.EQBtn.Name = "EQBtn";
+            this.EQBtn.Size = new System.Drawing.Size(40, 40);
+            this.EQBtn.TabIndex = 13;
+            this.EQBtn.UseVisualStyleBackColor = true;
+            this.EQBtn.Click += new System.EventHandler(this.EQBtn_Click);
+            // 
+            // SearchBtn
+            // 
+            this.SearchBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SearchBtn.Image = global::TRadioPlayer.Properties.Resources.edit_find;
+            this.SearchBtn.Location = new System.Drawing.Point(417, 0);
+            this.SearchBtn.Name = "SearchBtn";
+            this.SearchBtn.Size = new System.Drawing.Size(40, 40);
+            this.SearchBtn.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.SearchBtn, "Search in Stations");
+            this.SearchBtn.UseVisualStyleBackColor = true;
+            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
+            // 
+            // LogBtn
+            // 
+            this.LogBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.LogBtn.Image = global::TRadioPlayer.Properties.Resources.format_justify_center_4;
+            this.LogBtn.Location = new System.Drawing.Point(457, 0);
+            this.LogBtn.Name = "LogBtn";
+            this.LogBtn.Size = new System.Drawing.Size(40, 40);
+            this.LogBtn.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.LogBtn, "See mpv output");
+            this.LogBtn.UseVisualStyleBackColor = true;
+            this.LogBtn.Click += new System.EventHandler(this.AddNewStationBtn_Click);
+            // 
+            // StopBtn
+            // 
+            this.StopBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.StopBtn.Image = global::TRadioPlayer.Properties.Resources.media_playback_stop;
+            this.StopBtn.Location = new System.Drawing.Point(40, 0);
+            this.StopBtn.Name = "StopBtn";
+            this.StopBtn.Size = new System.Drawing.Size(40, 40);
+            this.StopBtn.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.StopBtn, "Stop");
+            this.StopBtn.UseVisualStyleBackColor = true;
+            this.StopBtn.Click += new System.EventHandler(this.StopBtn_Click);
+            // 
+            // PauseBtn
+            // 
+            this.PauseBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PauseBtn.Image = global::TRadioPlayer.Properties.Resources.media_playback_pause;
+            this.PauseBtn.Location = new System.Drawing.Point(0, 0);
+            this.PauseBtn.Name = "PauseBtn";
+            this.PauseBtn.Size = new System.Drawing.Size(40, 40);
+            this.PauseBtn.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.PauseBtn, "Pause/Play");
+            this.PauseBtn.UseVisualStyleBackColor = true;
+            this.PauseBtn.Click += new System.EventHandler(this.PauseBtn_Click);
+            // 
+            // AddStationBtn
+            // 
+            this.AddStationBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.AddStationBtn.Image = global::TRadioPlayer.Properties.Resources.list_add;
+            this.AddStationBtn.Location = new System.Drawing.Point(497, 0);
+            this.AddStationBtn.Name = "AddStationBtn";
+            this.AddStationBtn.Size = new System.Drawing.Size(40, 40);
+            this.AddStationBtn.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.AddStationBtn, "Add a new station");
+            this.AddStationBtn.UseVisualStyleBackColor = true;
+            this.AddStationBtn.Click += new System.EventHandler(this.AddStationBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 573);
+            this.ClientSize = new System.Drawing.Size(537, 573);
             this.Controls.Add(this.StationsList);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.TopPanel);
@@ -312,8 +322,6 @@
             this.TopPanel.ResumeLayout(false);
             this.VolumePanel.ResumeLayout(false);
             this.TopBottomPanel.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,6 +351,7 @@
         private System.Windows.Forms.Panel VolumePanel;
         private System.Windows.Forms.Panel TopBottomPanel;
         private System.Windows.Forms.Button AddStationBtn;
+        private System.Windows.Forms.Button EQBtn;
     }
 }
 
