@@ -13,5 +13,5 @@
 *.txt
 *.pdf
 tools
-/TRadioPlayer/bin/Debug/categories_2.json
+/TRadioPlayer.Settings/obj/Debug
 Debug
