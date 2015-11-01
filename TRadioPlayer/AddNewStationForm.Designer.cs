@@ -152,6 +152,8 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddNewStationForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a new radio station";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddNewStationForm_FormClosed);

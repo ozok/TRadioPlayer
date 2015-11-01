@@ -63,7 +63,7 @@ namespace TRadioPlayer
 
         private void LogForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainForm._logForm = null;
+            MainForm.LogForm = null;
         }
     }
 }

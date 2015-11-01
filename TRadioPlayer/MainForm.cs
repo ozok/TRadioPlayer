@@ -19,8 +19,8 @@ namespace TRadioPlayer
             Paused = 1,
             Stopped = 2
         }
-        public static LogForm _logForm = null;
-        public static AddNewStationForm _addNewStationForm = null;
+        public static LogForm LogForm = null;
+        public static AddNewStationForm AddNewStationForm = null;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
@@ -33,8 +33,12 @@ namespace TRadioPlayer
         private const string Paused = "(Paused)";
 
         // taskbar overlay icons
-        private Icon playIcon = System.Drawing.Icon.FromHandle(TRadioPlayer.Properties.Resources.play.GetHicon());
-        private Icon pausedIcon = System.Drawing.Icon.FromHandle(TRadioPlayer.Properties.Resources.pause.GetHicon());
+        private Icon playIcon = Icon.FromHandle(Properties.Resources.play.GetHicon());
+        private Icon pausedIcon = Icon.FromHandle(Properties.Resources.pause.GetHicon());
+        private Icon stopIcon = Icon.FromHandle(Properties.Resources.stop.GetHicon());
+
+        private ThumbnailToolBarButton _playThumbnailToolBarButton;
+        private ThumbnailToolBarButton _stopThumbnailToolBarButton;
 
         // list of radio stations
         private List<RadioInfo> _radioInfos = new List<RadioInfo>();
@@ -127,6 +131,33 @@ namespace TRadioPlayer
             _settingReadWrite = new SettingReadWrite(_settingsFilePath);
 
             _startInfo = PlayerProcess.StartInfo;
+
+            #region taskbar buttons
+
+            _playThumbnailToolBarButton = new ThumbnailToolBarButton(pausedIcon, "Play/Pause");
+            _stopThumbnailToolBarButton = new ThumbnailToolBarButton(stopIcon, "Stop");
+            _playThumbnailToolBarButton.Click += PlayThumbnailToolBarButtonOnClick;
+            _stopThumbnailToolBarButton.Click += StopThumbnailToolBarButtonOnClick;
+            _playThumbnailToolBarButton.Visible = true;
+            _playThumbnailToolBarButton.Enabled = true;
+            _stopThumbnailToolBarButton.Visible = true;
+            _stopThumbnailToolBarButton.Enabled = true;
+
+            TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, _playThumbnailToolBarButton,
+                _stopThumbnailToolBarButton);
+
+            #endregion
+
+        }
+
+        private void StopThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
+        {
+            StopBtn_Click(sender, null);
+        }
+
+        private void PlayThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
+        {
+            PauseBtn_Click(sender, null);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -147,7 +178,7 @@ namespace TRadioPlayer
             StationsList.Columns[0].Width = StationsList.ClientSize.Width - 10 - StationsList.Columns[1].Width;
 
             // load general program settings
-            LoadSettings();
+            LoadSettings(); 
         }
 
         /// <summary>
@@ -367,9 +398,9 @@ namespace TRadioPlayer
                 {
                     _log.Add("Error: " + e.Data);
                     LogForm.Logs.Add(e.Data);
-                    if (_logForm != null)
+                    if (LogForm != null)
                     {
-                        _logForm.VirtualSize = LogForm.Logs.Count;
+                        LogForm.VirtualSize = LogForm.Logs.Count;
                     }
                 }
                 HandleConsoleMessage(_consoleOutput);
@@ -387,9 +418,9 @@ namespace TRadioPlayer
                 {
                     _log.Add("Output " + e.Data);
                     LogForm.Logs.Add(e.Data);
-                    if (_logForm != null)
+                    if (LogForm != null)
                     {
-                        _logForm.VirtualSize = LogForm.Logs.Count;
+                        LogForm.VirtualSize = LogForm.Logs.Count;
                     }
                 }
                 HandleConsoleMessage(_consoleOutput);
@@ -582,15 +613,15 @@ namespace TRadioPlayer
 
         private void AddNewStationBtn_Click(object sender, EventArgs e)
         {
-            if (_logForm != null)
+            if (LogForm != null)
             {
-                _logForm.BringToFront();
+                LogForm.BringToFront();
             }
             else
             {
                 LogForm logForm = new LogForm();
-                _logForm = logForm;
-                _logForm.Show();  
+                LogForm = logForm;
+                LogForm.Show();  
             }
         }
 
@@ -601,15 +632,15 @@ namespace TRadioPlayer
 
         private void AddStationBtn_Click(object sender, EventArgs e)
         {
-            if (_addNewStationForm != null)
+            if (AddNewStationForm != null)
             {
-                _addNewStationForm.BringToFront();
+                AddNewStationForm.BringToFront();
             }
             else
             {
                 AddNewStationForm addNewStationForm = new AddNewStationForm(this);
-                _addNewStationForm = addNewStationForm;
-                _addNewStationForm.ShowDialog();
+                AddNewStationForm = addNewStationForm;
+                AddNewStationForm.ShowDialog();
             }
         }
     }

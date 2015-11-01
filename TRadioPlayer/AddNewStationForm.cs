@@ -78,7 +78,7 @@ namespace TRadioPlayer
 
         private void AddNewStationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainForm._addNewStationForm = null;
+            MainForm.AddNewStationForm = null;
             if (_mainForm != null)
             {
                 _mainForm.ReloadStationsAndData();
