@@ -41,22 +41,23 @@
             this.VolumeLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.VolumePanel = new System.Windows.Forms.Panel();
-            this.TopBottomPanel = new System.Windows.Forms.Panel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.RotateTimer = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.EQBtn = new System.Windows.Forms.Button();
             this.SearchBtn = new System.Windows.Forms.Button();
             this.LogBtn = new System.Windows.Forms.Button();
             this.StopBtn = new System.Windows.Forms.Button();
             this.PauseBtn = new System.Windows.Forms.Button();
             this.AddStationBtn = new System.Windows.Forms.Button();
+            this.TopBottomPanel = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.RotateTimer = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.StationListMenu.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.VolumePanel.SuspendLayout();
             this.TopBottomPanel.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CategoryList
@@ -200,34 +201,6 @@
             this.VolumePanel.Size = new System.Drawing.Size(297, 40);
             this.VolumePanel.TabIndex = 13;
             // 
-            // TopBottomPanel
-            // 
-            this.TopBottomPanel.Controls.Add(this.TitleLabel);
-            this.TopBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TopBottomPanel.Location = new System.Drawing.Point(0, 40);
-            this.TopBottomPanel.Name = "TopBottomPanel";
-            this.TopBottomPanel.Size = new System.Drawing.Size(537, 23);
-            this.TopBottomPanel.TabIndex = 15;
-            // 
-            // RotateTimer
-            // 
-            this.RotateTimer.Interval = 200;
-            this.RotateTimer.Tick += new System.EventHandler(this.RotateTimer_Tick);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 551);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(537, 22);
-            this.statusStrip1.TabIndex = 15;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(48, 17);
-            this.StatusLabel.Text = "Ready...";
-            // 
             // EQBtn
             // 
             this.EQBtn.Dock = System.Windows.Forms.DockStyle.Right;
@@ -299,6 +272,36 @@
             this.AddStationBtn.UseVisualStyleBackColor = true;
             this.AddStationBtn.Click += new System.EventHandler(this.AddStationBtn_Click);
             // 
+            // TopBottomPanel
+            // 
+            this.TopBottomPanel.Controls.Add(this.TitleLabel);
+            this.TopBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TopBottomPanel.Location = new System.Drawing.Point(0, 40);
+            this.TopBottomPanel.Name = "TopBottomPanel";
+            this.TopBottomPanel.Size = new System.Drawing.Size(537, 23);
+            this.TopBottomPanel.TabIndex = 15;
+            // 
+            // RotateTimer
+            // 
+            this.RotateTimer.Interval = 200;
+            this.RotateTimer.Tick += new System.EventHandler(this.RotateTimer_Tick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 551);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(537, 22);
+            this.statusStrip1.TabIndex = 15;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(48, 17);
+            this.StatusLabel.Text = "Ready...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,6 +325,8 @@
             this.TopPanel.ResumeLayout(false);
             this.VolumePanel.ResumeLayout(false);
             this.TopBottomPanel.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

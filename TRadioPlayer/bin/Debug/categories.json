@@ -1,7 +1,7 @@
 ﻿[
   {
     "Title": "All",
-    "LastPlayedStationIndex": 4977
+    "LastPlayedStationIndex": 0
   },
   {
     "Title": "50s, 60s & 70s",
@@ -101,6 +101,6 @@
   },
   {
     "Title": "Favourites",
-    "LastPlayedStationIndex": 1
+    "LastPlayedStationIndex": 3
   }
 ]
