@@ -24,10 +24,12 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TRadioPlayer.Settings
 {
@@ -35,11 +37,16 @@ namespace TRadioPlayer.Settings
     {
         public int RadioCategory { get; set; }
         public int VolumeLevel { get; set; }
+        public Point Location { get; set; }
+        public Size Size { get; set; }
+        public System.Windows.Forms.FormWindowState FormWindowState { get; set; }
 
         public Settings()
         {
             RadioCategory = 0;
             VolumeLevel = 50;
+            Size = new Size(553, 612);
+            FormWindowState = FormWindowState.Normal;
         }
     }
 }

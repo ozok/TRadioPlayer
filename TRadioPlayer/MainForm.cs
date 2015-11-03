@@ -102,6 +102,9 @@ namespace TRadioPlayer
         {
             _settings.RadioCategory = CategoryList.SelectedIndex;
             _settings.VolumeLevel = VolumeBar.Value;
+            _settings.Location = this.Location;
+            _settings.FormWindowState = this.WindowState;
+            _settings.Size = this.Size;
 
             _settingReadWrite.WriteSettings(_settings);
         }
@@ -117,6 +120,13 @@ namespace TRadioPlayer
             VolumeBar.Value = _settings.VolumeLevel;
             _volumeLevel = _settings.VolumeLevel;
             VolumeLabel.Text = String.Format("{0} %", _volumeLevel);
+
+            if (_settings.Location.X != 0 && _settings.Location.Y != 0)
+            {
+                this.Location = _settings.Location;
+            }
+            this.WindowState = _settings.FormWindowState;
+            this.Size = _settings.Size;
         }
 
         public void ReloadStationsAndData()
