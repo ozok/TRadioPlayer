@@ -543,15 +543,18 @@ namespace TRadioPlayer
             {
                 if (PlayerProcess.Handle.ToInt32() > 0)
                 {
-                    PlayerProcess.StandardInput.WriteLine("PAUSE");
-                    _playerState = _playerState == PlayerState.Playing ? PlayerState.Paused : PlayerState.Playing;
-                    if (_playerState == PlayerState.Playing)
+                    if (_playerState  != PlayerState.Stopped)
                     {
-                        TaskbarManager.Instance.SetOverlayIcon(playIcon, "Playing");
-                    }
-                    else if (_playerState == PlayerState.Paused)
-                    {
-                        TaskbarManager.Instance.SetOverlayIcon(pausedIcon, "Paused");
+                        PlayerProcess.StandardInput.WriteLine("PAUSE");
+                        _playerState = _playerState == PlayerState.Playing ? PlayerState.Paused : PlayerState.Playing;
+                        if (_playerState == PlayerState.Playing)
+                        {
+                            TaskbarManager.Instance.SetOverlayIcon(playIcon, "Playing");
+                        }
+                        else if (_playerState == PlayerState.Paused)
+                        {
+                            TaskbarManager.Instance.SetOverlayIcon(pausedIcon, "Paused");
+                        } 
                     }
                 }
             }
