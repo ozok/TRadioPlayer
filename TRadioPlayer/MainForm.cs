@@ -46,6 +46,8 @@ namespace TRadioPlayer
         public static LogForm LogForm = null;
         public static AddNewStationForm AddNewStationForm = null;
         private EQForm _eqForm = null;
+        private float[] _eqValues = new float[10];
+        private EqManager _eqManager;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
@@ -167,6 +169,8 @@ namespace TRadioPlayer
 
             _startInfo = PlayerProcess.StartInfo;
 
+            _eqManager = new EqManager(PlayerProcess);
+
             #region taskbar buttons
 
             _playThumbnailToolBarButton = new ThumbnailToolBarButton(pausedIcon, "Play/Pause");
@@ -185,6 +189,22 @@ namespace TRadioPlayer
 
             #endregion
 
+        }
+
+        public void ApplyEq(double[] eqValues)
+        {
+            try
+            {
+                if (PlayerProcess.Handle.ToInt32() > 0)
+                {
+                    PlayerProcess.StandardInput.WriteLine(_eqManager.GenerateApplyEqCmd(eqValues));
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            
         }
 
         private void StopThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
@@ -400,6 +420,7 @@ namespace TRadioPlayer
             PlayerProcess.OutputDataReceived += PlayerProcess_OutputDataReceived;
             PlayerProcess.Exited += MusicPlayProcess_Exited;
             PlayerProcess.EnableRaisingEvents = true;
+            PlayerProcess.StartInfo.RedirectStandardInput = true;
             PlayerProcess.Start();
             PlayerProcess.BeginErrorReadLine();
             PlayerProcess.BeginOutputReadLine();

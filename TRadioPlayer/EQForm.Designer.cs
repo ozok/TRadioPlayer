@@ -99,6 +99,7 @@
             this.PresetsList.Name = "PresetsList";
             this.PresetsList.Size = new System.Drawing.Size(171, 21);
             this.PresetsList.TabIndex = 1;
+            this.PresetsList.SelectedIndexChanged += new System.EventHandler(this.PresetsList_SelectedIndexChanged);
             // 
             // trackBar1
             // 

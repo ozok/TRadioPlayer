@@ -84,6 +84,7 @@
     <Compile Include="EQForm.Designer.cs">
       <DependentUpon>EQForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EqManager.cs" />
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
     </Compile>
