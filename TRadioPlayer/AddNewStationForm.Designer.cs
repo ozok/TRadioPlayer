@@ -46,7 +46,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleEdit.Location = new System.Drawing.Point(83, 12);
             this.TitleEdit.Name = "TitleEdit";
-            this.TitleEdit.Size = new System.Drawing.Size(526, 20);
+            this.TitleEdit.Size = new System.Drawing.Size(400, 20);
             this.TitleEdit.TabIndex = 0;
             // 
             // StreamUrlEdit
@@ -55,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StreamUrlEdit.Location = new System.Drawing.Point(83, 38);
             this.StreamUrlEdit.Name = "StreamUrlEdit";
-            this.StreamUrlEdit.Size = new System.Drawing.Size(526, 20);
+            this.StreamUrlEdit.Size = new System.Drawing.Size(400, 20);
             this.StreamUrlEdit.TabIndex = 1;
             // 
             // HomeEdit
@@ -64,7 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.HomeEdit.Location = new System.Drawing.Point(83, 64);
             this.HomeEdit.Name = "HomeEdit";
-            this.HomeEdit.Size = new System.Drawing.Size(526, 20);
+            this.HomeEdit.Size = new System.Drawing.Size(400, 20);
             this.HomeEdit.TabIndex = 2;
             // 
             // CategoryList
@@ -115,7 +115,7 @@
             // SaveBtn
             // 
             this.SaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveBtn.Location = new System.Drawing.Point(534, 105);
+            this.SaveBtn.Location = new System.Drawing.Point(408, 105);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 8;
@@ -126,7 +126,7 @@
             // CancelBtn
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelBtn.Location = new System.Drawing.Point(453, 105);
+            this.CancelBtn.Location = new System.Drawing.Point(327, 105);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 9;
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 140);
+            this.ClientSize = new System.Drawing.Size(495, 140);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.label4);

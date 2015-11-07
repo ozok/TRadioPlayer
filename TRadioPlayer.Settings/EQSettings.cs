@@ -24,41 +24,40 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TRadioPlayer
+namespace TRadioPlayer.Settings
 {
-    public class EqManager
+    public class EqSettings
     {
-        private Process _process = null;
+        public int EqVal1 { get; set; }
+        public int EqVal2 { get; set; }
+        public int EqVal3 { get; set; }
+        public int EqVal4 { get; set; }
+        public int EqVal5 { get; set; }
+        public int EqVal6 { get; set; }
+        public int EqVal7 { get; set; }
+        public int EqVal8 { get; set; }
+        public int EqVal9 { get; set; }
+        public int EqVal10 { get; set; }
+        public bool Enabled { get; set; }
+        public int PresetIndex { get; set; }
 
-        public EqManager(Process process)
+        public EqSettings()
         {
-            _process = process;
-        }
-
-        public string GenerateApplyEqCmd(double[] eqValues)
-        {
-            string eqCmd = "";
-            if (eqValues.Length == 10)
-            {
-                eqCmd = "af set equalizer=";
-                for (int i = 0; i < eqValues.Length; i++)
-                {
-                    if (i != eqValues.Length - 1)
-                    {
-                        eqCmd += (eqValues[i]).ToString().Replace(',', '.') + ":";
-                    }
-                    else
-                    {
-                        eqCmd += (eqValues[i]).ToString().Replace(',', '.');
-                    }
-                }
-            }
-            return eqCmd;
+            EqVal1 = 0;
+            EqVal2 = 0;
+            EqVal3 = 0;
+            EqVal4 = 0;
+            EqVal5 = 0;
+            EqVal6 = 0;
+            EqVal7 = 0;
+            EqVal8 = 0;
+            EqVal9 = 0;
+            EqVal10 = 0;
+            Enabled = false;
         }
     }
 }

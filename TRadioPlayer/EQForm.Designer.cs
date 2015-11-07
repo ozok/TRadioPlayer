@@ -65,6 +65,7 @@
             this.EnableEQBtn.TabIndex = 0;
             this.EnableEQBtn.Text = "Enable equalizer";
             this.EnableEQBtn.UseVisualStyleBackColor = true;
+            this.EnableEQBtn.CheckedChanged += new System.EventHandler(this.EnableEQBtn_CheckedChanged);
             // 
             // PresetsList
             // 
@@ -113,6 +114,7 @@
             this.trackBar1.Size = new System.Drawing.Size(40, 141);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar2
             // 
@@ -126,6 +128,7 @@
             this.trackBar2.Size = new System.Drawing.Size(40, 141);
             this.trackBar2.TabIndex = 3;
             this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar3
             // 
@@ -139,6 +142,7 @@
             this.trackBar3.Size = new System.Drawing.Size(40, 141);
             this.trackBar3.TabIndex = 4;
             this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar3.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar4
             // 
@@ -152,6 +156,7 @@
             this.trackBar4.Size = new System.Drawing.Size(40, 141);
             this.trackBar4.TabIndex = 5;
             this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar4.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar5
             // 
@@ -165,6 +170,7 @@
             this.trackBar5.Size = new System.Drawing.Size(40, 141);
             this.trackBar5.TabIndex = 6;
             this.trackBar5.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar5.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar6
             // 
@@ -178,6 +184,7 @@
             this.trackBar6.Size = new System.Drawing.Size(40, 141);
             this.trackBar6.TabIndex = 7;
             this.trackBar6.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar6.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar7
             // 
@@ -191,6 +198,7 @@
             this.trackBar7.Size = new System.Drawing.Size(40, 141);
             this.trackBar7.TabIndex = 8;
             this.trackBar7.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar7.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar8
             // 
@@ -204,6 +212,7 @@
             this.trackBar8.Size = new System.Drawing.Size(40, 141);
             this.trackBar8.TabIndex = 9;
             this.trackBar8.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar8.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar9
             // 
@@ -217,6 +226,7 @@
             this.trackBar9.Size = new System.Drawing.Size(40, 141);
             this.trackBar9.TabIndex = 10;
             this.trackBar9.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar9.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // trackBar10
             // 
@@ -230,6 +240,7 @@
             this.trackBar10.Size = new System.Drawing.Size(40, 141);
             this.trackBar10.TabIndex = 11;
             this.trackBar10.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar10.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // label1
             // 
@@ -287,7 +298,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Equalizer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EQForm_FormClosing);
             this.Load += new System.EventHandler(this.EQForm_Load);
+            this.Shown += new System.EventHandler(this.EQForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();

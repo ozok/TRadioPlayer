@@ -8,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TRadioPlayer.Settings;
 
 namespace TRadioPlayer
 {
     public partial class EQForm : Form
     {
         private MainForm _mainForm = null;
-        private string _eqFolder = String.Empty;
+        private EqSettings _eqSettings = new EqSettings();
+        private SettingReadWrite _settingReadWrite;
 
         public EQForm(MainForm mainForm)
         {
@@ -22,11 +24,49 @@ namespace TRadioPlayer
             _mainForm = mainForm;
         }
 
+        public void LoadSettings()
+        {
+            _eqSettings = _settingReadWrite.ReadEqSettings();
+
+            EnableEQBtn.Checked = _eqSettings.Enabled;
+            trackBar1.Value = _eqSettings.EqVal1;
+            trackBar2.Value = _eqSettings.EqVal2;
+            trackBar3.Value = _eqSettings.EqVal3;
+            trackBar4.Value = _eqSettings.EqVal4;
+            trackBar5.Value = _eqSettings.EqVal5;
+            trackBar6.Value = _eqSettings.EqVal6;
+            trackBar7.Value = _eqSettings.EqVal7;
+            trackBar8.Value = _eqSettings.EqVal8;
+            trackBar9.Value = _eqSettings.EqVal9;
+            trackBar10.Value = _eqSettings.EqVal10;
+            PresetsList.SelectedIndex = _eqSettings.PresetIndex;
+
+            EnableEQBtn_CheckedChanged(this, null);
+        }
+
+        public void SaveSettings()
+        {
+            _eqSettings.Enabled = EnableEQBtn.Checked;
+            _eqSettings.EqVal1 = trackBar1.Value;
+            _eqSettings.EqVal2 = trackBar2.Value;
+            _eqSettings.EqVal3 = trackBar3.Value;
+            _eqSettings.EqVal4 = trackBar4.Value;
+            _eqSettings.EqVal5 = trackBar5.Value;
+            _eqSettings.EqVal6 = trackBar6.Value;
+            _eqSettings.EqVal7 = trackBar7.Value;
+            _eqSettings.EqVal8 = trackBar8.Value;
+            _eqSettings.EqVal9 = trackBar9.Value;
+            _eqSettings.EqVal10 = trackBar10.Value;
+            _eqSettings.PresetIndex = PresetsList.SelectedIndex;
+            _settingReadWrite.WriteEqSettings(_eqSettings);
+        }
+
+
         private void EQForm_Load(object sender, EventArgs e)
         {
             // todo: load from settings
             PresetsList.SelectedIndex = 0;
-            _eqFolder = AppDomain.CurrentDomain.BaseDirectory + "\\EQ\\";
+            _settingReadWrite = new SettingReadWrite(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json", AppDomain.CurrentDomain.BaseDirectory + "\\eqsettings.json");
         }
 
         private void ApplyValues()
@@ -63,6 +103,36 @@ namespace TRadioPlayer
             trackBar10.Value = Convert.ToInt32(eqFileContent[9]);
 
             ApplyValues();
+        }
+
+        private void trackBar6_Scroll(object sender, EventArgs e)
+        {
+            ApplyValues();
+        }
+
+        private void EQForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveSettings();
+        }
+
+        private void EnableEQBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            trackBar1.Enabled = EnableEQBtn.Checked;
+            trackBar2.Enabled = EnableEQBtn.Checked;
+            trackBar3.Enabled = EnableEQBtn.Checked;
+            trackBar4.Enabled = EnableEQBtn.Checked;
+            trackBar5.Enabled = EnableEQBtn.Checked;
+            trackBar6.Enabled = EnableEQBtn.Checked;
+            trackBar7.Enabled = EnableEQBtn.Checked;
+            trackBar8.Enabled = EnableEQBtn.Checked;
+            trackBar9.Enabled = EnableEQBtn.Checked;
+            trackBar10.Enabled = EnableEQBtn.Checked;
+            PresetsList.Enabled = EnableEQBtn.Checked;
+        }
+
+        private void EQForm_Shown(object sender, EventArgs e)
+        {
+            LoadSettings();
         }
     }
 }

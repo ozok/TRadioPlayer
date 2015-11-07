@@ -35,10 +35,12 @@ namespace TRadioPlayer.Settings
     public class SettingReadWrite
     {
         private string _filePath;
+        private string _eqFilePath;
 
-        public SettingReadWrite(string filePath)
+        public SettingReadWrite(string filePath, string eqPath)
         {
             _filePath = filePath;
+            _eqFilePath = eqPath;
         }
 
         public Settings ReadSettings()
@@ -58,6 +60,25 @@ namespace TRadioPlayer.Settings
         {
             var jsonStr = JsonConvert.SerializeObject(settings, Formatting.Indented);
             File.WriteAllText(_filePath, jsonStr, Encoding.UTF8);
+        }
+
+        public EqSettings ReadEqSettings()
+        {
+            if (File.Exists(_eqFilePath))
+            {
+                var jsonStr = File.ReadAllText(_eqFilePath, Encoding.UTF8);
+                return JsonConvert.DeserializeObject<EqSettings>(jsonStr);
+            }
+            else
+            {
+                return new EqSettings();
+            }
+        }
+
+        public void WriteEqSettings(EqSettings eqSettings)
+        {
+            var jsonStr = JsonConvert.SerializeObject(eqSettings, Formatting.Indented);
+            File.WriteAllText(_eqFilePath, jsonStr, Encoding.UTF8); 
         }
     }
 }

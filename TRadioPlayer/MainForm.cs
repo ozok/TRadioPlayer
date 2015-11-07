@@ -165,7 +165,7 @@ namespace TRadioPlayer
             _mpvPath = AppDomain.CurrentDomain.BaseDirectory + "\\mpv\\mpv.exe";
 
             _radioDb = new RadioDb(_dataFilePath, _categoryListFilePath);
-            _settingReadWrite = new SettingReadWrite(_settingsFilePath);
+            _settingReadWrite = new SettingReadWrite(_settingsFilePath, AppDomain.CurrentDomain.BaseDirectory + "\\eqsettings.json");
 
             _startInfo = PlayerProcess.StartInfo;
 
@@ -197,7 +197,14 @@ namespace TRadioPlayer
             {
                 if (PlayerProcess.Handle.ToInt32() > 0)
                 {
-                    PlayerProcess.StandardInput.WriteLine(_eqManager.GenerateApplyEqCmd(eqValues));
+                    string eqStr = _eqManager.GenerateApplyEqCmd(eqValues);
+                    PlayerProcess.StandardInput.WriteLine(eqStr);
+
+                    LogForm.Logs.Add(eqStr);
+                    if (LogForm != null)
+                    {
+                        LogForm.VirtualSize = LogForm.Logs.Count;
+                    }
                 }
             }
             catch (Exception)
