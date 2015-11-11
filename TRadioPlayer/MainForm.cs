@@ -45,14 +45,15 @@ namespace TRadioPlayer
         }
         public static LogForm LogForm = null;
         public static AddNewStationForm AddNewStationForm = null;
-        private EQForm _eqForm = null;
-        private float[] _eqValues = new float[10];
+        public static EQForm EqForm = null;
         private EqManager _eqManager;
+        private bool _failedToOpen = false;
+        private bool _muted = false;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
         private const string TitleStart = " icy-title: ";
-        private const string ErrorStart = "Failed to open ";
+        private const string ErrorStart = "Failed to open";
         private const string Buffering = "(Buffering) ";
         private const string Exiting = "Exiting...";
         private const string Playing = "Playing";
@@ -63,9 +64,11 @@ namespace TRadioPlayer
         private Icon playIcon = Icon.FromHandle(Properties.Resources.media_playback_start.GetHicon());
         private Icon pausedIcon = Icon.FromHandle(Properties.Resources.media_playback_pause.GetHicon());
         private Icon stopIcon = Icon.FromHandle(Properties.Resources.media_playback_stop.GetHicon());
+        private Icon muteIcon = System.Drawing.Icon.FromHandle(Properties.Resources.audio_volume_muted.GetHicon());
 
         private ThumbnailToolBarButton _playThumbnailToolBarButton;
         private ThumbnailToolBarButton _stopThumbnailToolBarButton;
+        private ThumbnailToolBarButton _muteThumbnailToolBarButton;
 
         // list of radio stations
         private List<RadioInfo> _radioInfos = new List<RadioInfo>();
@@ -175,20 +178,30 @@ namespace TRadioPlayer
 
             _playThumbnailToolBarButton = new ThumbnailToolBarButton(pausedIcon, "Play/Pause");
             _stopThumbnailToolBarButton = new ThumbnailToolBarButton(stopIcon, "Stop");
+            _muteThumbnailToolBarButton = new ThumbnailToolBarButton(muteIcon, "Mute");
             _playThumbnailToolBarButton.Click += PlayThumbnailToolBarButtonOnClick;
             _stopThumbnailToolBarButton.Click += StopThumbnailToolBarButtonOnClick;
+            _muteThumbnailToolBarButton.Click += MuteThumbnailToolBarButtonOnClick;
             _playThumbnailToolBarButton.Visible = true;
             _playThumbnailToolBarButton.Enabled = true;
             _stopThumbnailToolBarButton.Visible = true;
             _stopThumbnailToolBarButton.Enabled = true;
+            _muteThumbnailToolBarButton.Visible = true;
+            _muteThumbnailToolBarButton.Enabled = true;
             _playThumbnailToolBarButton.DismissOnClick = true;
             _stopThumbnailToolBarButton.DismissOnClick = true;
+            _muteThumbnailToolBarButton.DismissOnClick = true;
 
             TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, _playThumbnailToolBarButton,
-                _stopThumbnailToolBarButton);
+                _stopThumbnailToolBarButton, _muteThumbnailToolBarButton);
 
             #endregion
 
+        }
+
+        private void MuteThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
+        {
+            MuteBtn_Click(this, null);
         }
 
         public void ApplyEq(double[] eqValues)
@@ -295,7 +308,9 @@ namespace TRadioPlayer
             {
                 Invoke((MethodInvoker)delegate
                 {
+                    StopBtn_Click(null, null);
                     StatusLabel.Text = "Unable to play this station.";
+                    _failedToOpen = true;
                 });
             }
             else if (consoleMesssage.StartsWith(Buffering))
@@ -305,7 +320,7 @@ namespace TRadioPlayer
                     StatusLabel.Text = "Buffering...";
                 });
             }
-            else if (consoleMesssage.StartsWith(Exiting))
+            else if (consoleMesssage.StartsWith(Exiting) && !_failedToOpen)
             {
                 Invoke((MethodInvoker)delegate
                 {
@@ -314,27 +329,30 @@ namespace TRadioPlayer
             }
             else
             {
-                if (StatusLabel.Text != Playing)
+                if (!_failedToOpen)
                 {
-                    Invoke((MethodInvoker)delegate
+                    if (StatusLabel.Text != Playing)
                     {
-                        StatusLabel.Text = Playing;
-                    });
-                }
-                if (TitleLabel.Text != _title)
-                {
-                    Invoke((MethodInvoker)delegate
+                        Invoke((MethodInvoker)delegate
+                        {
+                            StatusLabel.Text = Playing;
+                        });
+                    }
+                    if (TitleLabel.Text != _title)
                     {
-                        //TitleLabel.Text = _title;
-                    });
-                }
+                        Invoke((MethodInvoker)delegate
+                        {
+                            //TitleLabel.Text = _title;
+                        });
+                    }
 
-                if (Text != _title + " - TRadioPlayer")
-                {
-                    Invoke((MethodInvoker)delegate
+                    if (Text != _title + " - TRadioPlayer")
                     {
-                        this.Text = _title + " - TRadioPlayer";
-                    });
+                        Invoke((MethodInvoker)delegate
+                        {
+                            this.Text = _title + " - TRadioPlayer";
+                        });
+                    }
                 }
             }
         }
@@ -377,6 +395,7 @@ namespace TRadioPlayer
         /// <param name="url">Url to play</param>
         private void PlayUrl(string url)
         {
+            _failedToOpen = false;
             // kill mpv if it is already running
             try
             {
@@ -624,9 +643,9 @@ namespace TRadioPlayer
                     return;
                 }
             }
-            if (_eqForm != null)
+            if (EqForm != null)
             {
-                if (_eqForm.Visible)
+                if (EqForm.Visible)
                 {
                     return;
                 }
@@ -643,9 +662,9 @@ namespace TRadioPlayer
                     return;
                 }
             }
-            if (_eqForm != null)
+            if (EqForm != null)
             {
-                if (_eqForm.Visible)
+                if (EqForm.Visible)
                 {
                     return;
                 }
@@ -760,15 +779,36 @@ namespace TRadioPlayer
 
         private void EQBtn_Click(object sender, EventArgs e)
         {
-            if (_eqForm != null)
+            if (EqForm != null)
             {
-                _eqForm.BringToFront();
+                EqForm.BringToFront();
             }
             else
             {
                 EQForm eqForm = new EQForm(this);
-                _eqForm = eqForm;
-                _eqForm.Show();
+                EqForm = eqForm;
+                EqForm.Show();
+            }
+        }
+
+        private void MuteBtn_Click(object sender, EventArgs e)
+        {
+            // mute
+            try
+            {
+                if (PlayerProcess.Handle.ToInt32() > 0)
+                {
+                    if (_playerState != PlayerState.Stopped)
+                    {
+                        PlayerProcess.StandardInput.WriteLine("MUTE");
+                        _muted = !_muted;
+                        MuteBtn.Image = _muted ? Properties.Resources.audio_volume_muted : Properties.Resources.audio_volume_high;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
         }
     }

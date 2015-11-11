@@ -299,6 +299,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Equalizer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EQForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EQForm_FormClosed);
             this.Load += new System.EventHandler(this.EQForm_Load);
             this.Shown += new System.EventHandler(this.EQForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();

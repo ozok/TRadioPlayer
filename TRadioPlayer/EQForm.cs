@@ -134,5 +134,10 @@ namespace TRadioPlayer
         {
             LoadSettings();
         }
+
+        private void EQForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MainForm.EqForm = null;
+        }
     }
 }
