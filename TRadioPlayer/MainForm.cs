@@ -46,9 +46,10 @@ namespace TRadioPlayer
         public static LogForm LogForm = null;
         public static AddNewStationForm AddNewStationForm = null;
         public static EQForm EqForm = null;
-        private EqManager _eqManager;
         private bool _failedToOpen = false;
         private bool _muted = false;
+        private EqSettings _eqSettings = new EqSettings();
+        private EqManager _eqManager;
 
         // constants are mostly used to parse output from mpv
         private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
@@ -126,7 +127,7 @@ namespace TRadioPlayer
             _volumeLevel = _settings.VolumeLevel;
             VolumeLabel.Text = String.Format("{0} %", _volumeLevel);
 
-            if (_settings.Location.X != 0 && _settings.Location.Y != 0)
+            if (_settings.Location.X > 0 && _settings.Location.Y > 0)
             {
                 this.Location = _settings.Location;
             }
@@ -190,7 +191,6 @@ namespace TRadioPlayer
             _muteThumbnailToolBarButton.Enabled = true;
             _playThumbnailToolBarButton.DismissOnClick = true;
             _stopThumbnailToolBarButton.DismissOnClick = true;
-            _muteThumbnailToolBarButton.DismissOnClick = true;
 
             TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, _playThumbnailToolBarButton,
                 _stopThumbnailToolBarButton, _muteThumbnailToolBarButton);
@@ -440,6 +440,7 @@ namespace TRadioPlayer
             {
                 PlayerProcess.StartInfo = _startInfo;
             }
+
             PlayerProcess.StartInfo.FileName = _mpvPath;
             PlayerProcess.StartInfo.Arguments = SongPlayCmd + " --volume " + _volumeLevel.ToString() + " \"" + url + "\"";
             PlayerProcess.ErrorDataReceived += PlayProcess_ErrorDataReceived;
@@ -451,6 +452,24 @@ namespace TRadioPlayer
             PlayerProcess.BeginErrorReadLine();
             PlayerProcess.BeginOutputReadLine();
             _playerState = PlayerState.Playing;
+
+            #region equalizer
+
+            _eqSettings = _settingReadWrite.ReadEqSettings();
+            double[] eqValues = new double[10];
+            eqValues[0] = _eqSettings.EqVal1 / 100.0;
+            eqValues[1] = _eqSettings.EqVal2 / 100.0;
+            eqValues[2] = _eqSettings.EqVal3 / 100.0;
+            eqValues[3] = _eqSettings.EqVal4 / 100.0;
+            eqValues[4] = _eqSettings.EqVal5 / 100.0;
+            eqValues[5] = _eqSettings.EqVal6 / 100.0;
+            eqValues[6] = _eqSettings.EqVal7 / 100.0;
+            eqValues[7] = _eqSettings.EqVal8 / 100.0;
+            eqValues[8] = _eqSettings.EqVal9 / 100.0;
+            eqValues[9] = _eqSettings.EqVal10 / 100.0;
+            ApplyEq(eqValues);
+
+            #endregion
         }
 
         private void VolumeBar_Scroll(object sender, EventArgs e)
@@ -770,6 +789,10 @@ namespace TRadioPlayer
             else if (e.KeyCode == Keys.S && e.Control)
             {
                 StopBtn_Click(sender, null);
+            }
+            else if (e.KeyCode == Keys.M && e.Control)
+            {
+                MuteBtn_Click(sender, null);
             }
             else if (e.KeyCode == Keys.F3)
             {
