@@ -135,6 +135,15 @@ namespace TRadioPlayer
             this.Size = _settings.Size;
         }
 
+        public void Log(string logItem)
+        {
+            LogForm.Logs.Add(String.Format("[{0}] {1}", DateTime.Now, logItem));
+            if (LogForm != null)
+            {
+                LogForm.VirtualSize = LogForm.Logs.Count;
+            }
+        }
+
         public void ReloadStationsAndData()
         {
             _radioDb = new RadioDb(_dataFilePath, _categoryListFilePath);
@@ -213,11 +222,7 @@ namespace TRadioPlayer
                     string eqStr = _eqManager.GenerateApplyEqCmd(eqValues);
                     PlayerProcess.StandardInput.WriteLine(eqStr);
 
-                    LogForm.Logs.Add(eqStr);
-                    if (LogForm != null)
-                    {
-                        LogForm.VirtualSize = LogForm.Logs.Count;
-                    }
+                    Log(eqStr);
                 }
             }
             catch (Exception)
@@ -500,11 +505,7 @@ namespace TRadioPlayer
                 if (!e.Data.StartsWith("A: ") && !e.Data.StartsWith(Paused) && !e.Data.StartsWith(Buffering))
                 {
                     _log.Add("Error: " + e.Data);
-                    LogForm.Logs.Add(e.Data);
-                    if (LogForm != null)
-                    {
-                        LogForm.VirtualSize = LogForm.Logs.Count;
-                    }
+                    Log(e.Data);
                 }
                 HandleConsoleMessage(_consoleOutput);
             }
@@ -520,11 +521,7 @@ namespace TRadioPlayer
                 if (!e.Data.StartsWith("A: ") && !e.Data.StartsWith(Paused) && !e.Data.StartsWith(Buffering))
                 {
                     _log.Add("Output " + e.Data);
-                    LogForm.Logs.Add(e.Data);
-                    if (LogForm != null)
-                    {
-                        LogForm.VirtualSize = LogForm.Logs.Count;
-                    }
+                    Log(e.Data);
                 }
                 HandleConsoleMessage(_consoleOutput);
             }
@@ -719,7 +716,10 @@ namespace TRadioPlayer
             {
                 int index = StationsList.SelectedIndices[0];
 
-                _radioDb.UpdateFavState(_radioInfos[index].Index);
+                Log(_radioInfos[index].Title);
+                Log(_radioInfos[index].Index.ToString());
+
+                _radioDb.UpdateFavState(_radioInfos[index]);
                 StationsList.Refresh();
             }
         }
@@ -833,6 +833,11 @@ namespace TRadioPlayer
             {
                 // ignored
             }
+        }
+
+        private void StationListMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

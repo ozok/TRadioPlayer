@@ -155,11 +155,15 @@ namespace TRadioPlayer.DataAccess
         /// <summary>
         /// reverses a radio station's favourite state
         /// </summary>
-        /// <param name="index"></param>
-        public void UpdateFavState(int index)
+        /// <param name="radioInfo"></param>
+        public void UpdateFavState(RadioInfo radioInfo)
         {
-            _radioInfos[index].Faved = !_radioInfos[index].Faved;
-            WriteDataToFile();
+            RadioInfo radioInfo1 = _radioInfos.FirstOrDefault(r => r == radioInfo);
+            if (radioInfo1 != null)
+            {
+                radioInfo1.Faved = !radioInfo1.Faved;
+                WriteDataToFile();
+            }
         }
     }
 }
