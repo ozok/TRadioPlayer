@@ -224,7 +224,7 @@ namespace TRadioPlayer
             {
                 // ignored
             }
-            
+
         }
 
         private void StopThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
@@ -609,7 +609,7 @@ namespace TRadioPlayer
             {
                 if (PlayerProcess.Handle.ToInt32() > 0)
                 {
-                    if (_playerState  != PlayerState.Stopped)
+                    if (_playerState != PlayerState.Stopped)
                     {
                         PlayerProcess.StandardInput.WriteLine("PAUSE");
                         _playerState = _playerState == PlayerState.Playing ? PlayerState.Paused : PlayerState.Playing;
@@ -620,7 +620,7 @@ namespace TRadioPlayer
                         else if (_playerState == PlayerState.Paused)
                         {
                             TaskbarManager.Instance.SetOverlayIcon(pausedIcon, "Paused");
-                        } 
+                        }
                     }
                 }
             }
