@@ -274,6 +274,7 @@ namespace TRadioPlayer
                 _currentRadioIndex = lastPlayedIndex;
             }
             StationsList.Refresh();
+            StationsList.Update();
         }
 
         /// <summary>
@@ -833,6 +834,13 @@ namespace TRadioPlayer
             {
                 // ignored
             }
+        }
+
+        private void AboutBtn_Click(object sender, EventArgs e)
+        {
+            string msg = "TRadioPlayer Beta 1 " + Environment.NewLine + "2015-2016 ozok26@gmail.com" +
+                         Environment.NewLine + "MIT Licence";
+            MessageBox.Show(msg, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
