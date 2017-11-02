@@ -6,7 +6,6 @@
 *.nupkg
 *.ps1
 *.targets
-*.config
 *.transform
 *.xdt
 *.xml

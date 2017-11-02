@@ -41,6 +41,11 @@
             this.VolumeLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.VolumePanel = new System.Windows.Forms.Panel();
+            this.TopBottomPanel = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.RotateTimer = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.MuteBtn = new System.Windows.Forms.Button();
             this.EQBtn = new System.Windows.Forms.Button();
             this.SearchBtn = new System.Windows.Forms.Button();
@@ -48,11 +53,7 @@
             this.StopBtn = new System.Windows.Forms.Button();
             this.PauseBtn = new System.Windows.Forms.Button();
             this.AddStationBtn = new System.Windows.Forms.Button();
-            this.TopBottomPanel = new System.Windows.Forms.Panel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.RotateTimer = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AboutBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.VolumeBar)).BeginInit();
             this.StationListMenu.SuspendLayout();
             this.TopPanel.SuspendLayout();
@@ -81,7 +82,7 @@
             this.TitleLabel.Location = new System.Drawing.Point(0, 3);
             this.TitleLabel.Margin = new System.Windows.Forms.Padding(3);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(576, 20);
+            this.TitleLabel.Size = new System.Drawing.Size(616, 20);
             this.TitleLabel.TabIndex = 8;
             this.TitleLabel.Text = "TRadioPlayer";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -132,7 +133,7 @@
             this.StationsList.Location = new System.Drawing.Point(0, 63);
             this.StationsList.Margin = new System.Windows.Forms.Padding(0);
             this.StationsList.Name = "StationsList";
-            this.StationsList.Size = new System.Drawing.Size(576, 488);
+            this.StationsList.Size = new System.Drawing.Size(616, 488);
             this.StationsList.TabIndex = 10;
             this.StationsList.UseCompatibleStateImageBehavior = false;
             this.StationsList.View = System.Windows.Forms.View.Details;
@@ -157,7 +158,6 @@
             this.favUnFavToolStripMenuItem});
             this.StationListMenu.Name = "StationListMenu";
             this.StationListMenu.Size = new System.Drawing.Size(131, 26);
-            this.StationListMenu.Opening += new System.ComponentModel.CancelEventHandler(this.StationListMenu_Opening);
             // 
             // favUnFavToolStripMenuItem
             // 
@@ -169,9 +169,9 @@
             // VolumeLabel
             // 
             this.VolumeLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.VolumeLabel.Location = new System.Drawing.Point(261, 0);
+            this.VolumeLabel.Location = new System.Drawing.Point(256, 0);
             this.VolumeLabel.Name = "VolumeLabel";
-            this.VolumeLabel.Size = new System.Drawing.Size(35, 40);
+            this.VolumeLabel.Size = new System.Drawing.Size(40, 40);
             this.VolumeLabel.TabIndex = 12;
             this.VolumeLabel.Text = "100%";
             this.VolumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -186,11 +186,12 @@
             this.TopPanel.Controls.Add(this.StopBtn);
             this.TopPanel.Controls.Add(this.PauseBtn);
             this.TopPanel.Controls.Add(this.AddStationBtn);
+            this.TopPanel.Controls.Add(this.AboutBtn);
             this.TopPanel.Controls.Add(this.TopBottomPanel);
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(576, 63);
+            this.TopPanel.Size = new System.Drawing.Size(616, 63);
             this.TopPanel.TabIndex = 14;
             // 
             // VolumePanel
@@ -204,6 +205,36 @@
             this.VolumePanel.Name = "VolumePanel";
             this.VolumePanel.Size = new System.Drawing.Size(336, 40);
             this.VolumePanel.TabIndex = 13;
+            // 
+            // TopBottomPanel
+            // 
+            this.TopBottomPanel.Controls.Add(this.TitleLabel);
+            this.TopBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TopBottomPanel.Location = new System.Drawing.Point(0, 40);
+            this.TopBottomPanel.Name = "TopBottomPanel";
+            this.TopBottomPanel.Size = new System.Drawing.Size(616, 23);
+            this.TopBottomPanel.TabIndex = 15;
+            // 
+            // RotateTimer
+            // 
+            this.RotateTimer.Interval = 200;
+            this.RotateTimer.Tick += new System.EventHandler(this.RotateTimer_Tick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 551);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(616, 22);
+            this.statusStrip1.TabIndex = 15;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(48, 17);
+            this.StatusLabel.Text = "Ready...";
             // 
             // MuteBtn
             // 
@@ -287,41 +318,22 @@
             this.AddStationBtn.UseVisualStyleBackColor = true;
             this.AddStationBtn.Click += new System.EventHandler(this.AddStationBtn_Click);
             // 
-            // TopBottomPanel
+            // AboutBtn
             // 
-            this.TopBottomPanel.Controls.Add(this.TitleLabel);
-            this.TopBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TopBottomPanel.Location = new System.Drawing.Point(0, 40);
-            this.TopBottomPanel.Name = "TopBottomPanel";
-            this.TopBottomPanel.Size = new System.Drawing.Size(576, 23);
-            this.TopBottomPanel.TabIndex = 15;
-            // 
-            // RotateTimer
-            // 
-            this.RotateTimer.Interval = 200;
-            this.RotateTimer.Tick += new System.EventHandler(this.RotateTimer_Tick);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 551);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(576, 22);
-            this.statusStrip1.TabIndex = 15;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(48, 17);
-            this.StatusLabel.Text = "Ready...";
+            this.AboutBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.AboutBtn.Image = global::TRadioPlayer.Properties.Resources.emblem_notice;
+            this.AboutBtn.Location = new System.Drawing.Point(576, 0);
+            this.AboutBtn.Name = "AboutBtn";
+            this.AboutBtn.Size = new System.Drawing.Size(40, 40);
+            this.AboutBtn.TabIndex = 17;
+            this.AboutBtn.UseVisualStyleBackColor = true;
+            this.AboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 573);
+            this.ClientSize = new System.Drawing.Size(616, 573);
             this.Controls.Add(this.StationsList);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.TopPanel);
@@ -373,6 +385,7 @@
         private System.Windows.Forms.Button AddStationBtn;
         private System.Windows.Forms.Button EQBtn;
         private System.Windows.Forms.Button MuteBtn;
+        private System.Windows.Forms.Button AboutBtn;
     }
 }
 

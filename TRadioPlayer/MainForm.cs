@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2015 ozok26@gmail.com - Okan Özcan
+Copyright (c) 2015-2016 ozok26@gmail.com - Okan Özcan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ namespace TRadioPlayer
         private EqManager _eqManager;
 
         // constants are mostly used to parse output from mpv
-        private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --ao=dsound --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
+        private const string SongPlayCmd = " --no-quiet --terminal --no-msg-color --input-file=/dev/stdin --no-fs --hwdec=no --sub-auto=fuzzy --vo=null, --priority=abovenormal --no-input-default-bindings --input-x11-keyboard=no --no-input-cursor --cursor-autohide=no --no-keepaspect --monitorpixelaspect=1 --osd-scale=1 --cache=4096 --osd-level=0 --audio-channels=2 --af-add=scaletempo --af-add=equalizer=0:0:0:0:0:0:0:0:0:0 --softvol=yes --softvol-max=100 --ytdl=no --term-playing-msg=MPV_VERSION=${=mpv-version:} ";
         private const string TitleStart = " icy-title: ";
         private const string ErrorStart = "Failed to open";
         private const string Buffering = "(Buffering) ";
@@ -135,15 +135,6 @@ namespace TRadioPlayer
             this.Size = _settings.Size;
         }
 
-        public void Log(string logItem)
-        {
-            LogForm.Logs.Add(String.Format("[{0}] {1}", DateTime.Now, logItem));
-            if (LogForm != null)
-            {
-                LogForm.VirtualSize = LogForm.Logs.Count;
-            }
-        }
-
         public void ReloadStationsAndData()
         {
             _radioDb = new RadioDb(_dataFilePath, _categoryListFilePath);
@@ -222,14 +213,18 @@ namespace TRadioPlayer
                     string eqStr = _eqManager.GenerateApplyEqCmd(eqValues);
                     PlayerProcess.StandardInput.WriteLine(eqStr);
 
-                    Log(eqStr);
+                    LogForm.Logs.Add(eqStr);
+                    if (LogForm != null)
+                    {
+                        LogForm.VirtualSize = LogForm.Logs.Count;
+                    }
                 }
             }
             catch (Exception)
             {
                 // ignored
             }
-            
+
         }
 
         private void StopThumbnailToolBarButtonOnClick(object sender, ThumbnailButtonClickedEventArgs thumbnailButtonClickedEventArgs)
@@ -279,6 +274,7 @@ namespace TRadioPlayer
                 _currentRadioIndex = lastPlayedIndex;
             }
             StationsList.Refresh();
+            StationsList.Update();
         }
 
         /// <summary>
@@ -505,7 +501,11 @@ namespace TRadioPlayer
                 if (!e.Data.StartsWith("A: ") && !e.Data.StartsWith(Paused) && !e.Data.StartsWith(Buffering))
                 {
                     _log.Add("Error: " + e.Data);
-                    Log(e.Data);
+                    LogForm.Logs.Add(e.Data);
+                    if (LogForm != null)
+                    {
+                        LogForm.VirtualSize = LogForm.Logs.Count;
+                    }
                 }
                 HandleConsoleMessage(_consoleOutput);
             }
@@ -521,7 +521,11 @@ namespace TRadioPlayer
                 if (!e.Data.StartsWith("A: ") && !e.Data.StartsWith(Paused) && !e.Data.StartsWith(Buffering))
                 {
                     _log.Add("Output " + e.Data);
-                    Log(e.Data);
+                    LogForm.Logs.Add(e.Data);
+                    if (LogForm != null)
+                    {
+                        LogForm.VirtualSize = LogForm.Logs.Count;
+                    }
                 }
                 HandleConsoleMessage(_consoleOutput);
             }
@@ -606,7 +610,7 @@ namespace TRadioPlayer
             {
                 if (PlayerProcess.Handle.ToInt32() > 0)
                 {
-                    if (_playerState  != PlayerState.Stopped)
+                    if (_playerState != PlayerState.Stopped)
                     {
                         PlayerProcess.StandardInput.WriteLine("PAUSE");
                         _playerState = _playerState == PlayerState.Playing ? PlayerState.Paused : PlayerState.Playing;
@@ -617,7 +621,7 @@ namespace TRadioPlayer
                         else if (_playerState == PlayerState.Paused)
                         {
                             TaskbarManager.Instance.SetOverlayIcon(pausedIcon, "Paused");
-                        } 
+                        }
                     }
                 }
             }
@@ -716,10 +720,7 @@ namespace TRadioPlayer
             {
                 int index = StationsList.SelectedIndices[0];
 
-                Log(_radioInfos[index].Title);
-                Log(_radioInfos[index].Index.ToString());
-
-                _radioDb.UpdateFavState(_radioInfos[index]);
+                _radioDb.UpdateFavState(_radioInfos[index].Index);
                 StationsList.Refresh();
             }
         }
@@ -835,9 +836,11 @@ namespace TRadioPlayer
             }
         }
 
-        private void StationListMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void AboutBtn_Click(object sender, EventArgs e)
         {
-
+            string msg = "TRadioPlayer Beta 1 " + Environment.NewLine + "2015-2016 ozok26@gmail.com" +
+                         Environment.NewLine + "MIT Licence";
+            MessageBox.Show(msg, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

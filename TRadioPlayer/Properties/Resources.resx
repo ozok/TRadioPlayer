@@ -121,17 +121,20 @@
   <data name="multimedia-equalizer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\multimedia-equalizer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="audio-volume-high" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\audio-volume-high.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="media-playback-start" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media-playback-start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="media-playback-pause-6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media-playback-pause-6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="format-justify-center-4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\format-justify-center-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="list-add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\list-add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="format-justify-center-4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\format-justify-center-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="audio-volume-muted" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\audio-volume-muted.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,7 +148,10 @@
   <data name="media_playback_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media-playback-stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="audio-volume-high" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\audio-volume-high.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="system-help-3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\system-help-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="emblem-notice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\emblem-notice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
